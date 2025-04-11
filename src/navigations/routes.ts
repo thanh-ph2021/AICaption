@@ -3,4 +3,5 @@ export const ROUTES = {
     HOME: 'HOME',
     CREATE: 'CREATE',
     SETTINGS: 'SETTINGS',
+    STATUS_BIO_DETAIL: 'STATUS_BIO_DETAIL',
 } as const

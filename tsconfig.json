@@ -15,6 +15,10 @@
       "@components": ["src/components/index.ts"],
       "@constants/*": ["src/constants/*"],
       "@constants": ["src/constants/index.ts"],
+      "@navigations/*": ["src/navigations/*"],
+      "@navigations": ["src/navigations/index.ts"],
+      "@utils/*": ["src/utils/*"],
+      "@utils": ["src/utils/index.ts"],
     },
   },
 }

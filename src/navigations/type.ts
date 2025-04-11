@@ -5,3 +5,8 @@ export type BottomTabParamList = {
     [ROUTES.CREATE]: undefined,
     [ROUTES.SETTINGS]: undefined,
 }
+
+export type RootStackParamList = {
+    [ROUTES.TABS]: undefined,
+    [ROUTES.STATUS_BIO_DETAIL]: { content: string, socialType: string, img: string },
+}
