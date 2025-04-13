@@ -20,7 +20,7 @@ export type ThemeColor = {
     readonly info: string;
 
     // Inputs
-    readonly input: string;
+    readonly placehodler: string;
 
 }
 

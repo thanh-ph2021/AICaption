@@ -19,7 +19,7 @@ const DarkTheme: ThemeData = {
 
         info: '#FFFFFF',
 
-        input: '#FFFFFF',
+        placehodler: '#A4A1A1',
 
     }
 }

@@ -35,6 +35,14 @@ const AppTabBar: React.FC<BottomTabBarProps> = ({ state, navigation }) => {
                 return null
         }
     }
+
+    const navigateToCreate = (type: string) => {
+        if (bottomSheetRef.current) {
+            bottomSheetRef.current.close()
+        }
+        navigation.navigate(ROUTES.GENERATE_CONTENT, { type })
+    }
+
     return (
         <View style={{
             flexDirection: "row",
@@ -93,14 +101,14 @@ const AppTabBar: React.FC<BottomTabBarProps> = ({ state, navigation }) => {
                 <View style={styles.contentContainer}>
                     <TextComponent text={'Create new'} style={{ ...Fonts.h3 }} />
                     <View style={styles.row}>
-                        <TouchableOpacity style={styles.item}>
+                        <TouchableOpacity style={styles.item} onPress={() => navigateToCreate('Status')}>
                             <View style={[styles.iconWrapper, { backgroundColor: colors.secondary }]}>
                                 <Icons.AddStatus color={'white'} size={20} />
                             </View>
 
                             <TextComponent text='Status' style={{ ...Fonts.body3 }} />
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.item}>
+                        <TouchableOpacity style={styles.item} onPress={() => navigateToCreate('Bio')}>
                             <View style={[styles.iconWrapper, { backgroundColor: colors.accent }]}>
                                 <Icons.AddBio color={'white'} size={20} />
                             </View>

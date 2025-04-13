@@ -19,7 +19,7 @@ const LightTheme: ThemeData = {
 
         info: '#80CE8E',
 
-        input: '#FFFFFF',
+        placehodler: '#A4A1A1',
 
     }
 }

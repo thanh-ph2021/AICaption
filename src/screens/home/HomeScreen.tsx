@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react'
 import { FlatList, Image, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { GoogleGenAI } from "@google/genai"
-import Config from 'react-native-config'
 import moment from 'moment'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
@@ -11,8 +9,6 @@ import { Container, TextComponent, Icons } from "@components"
 import { Fonts, Spacing, Radius } from '@constants'
 import { RootStackParamList, ROUTES } from '@navigations'
 
-
-const ai = new GoogleGenAI({ apiKey: Config.GOOGLE_API_KEY })
 const DATA: any[] = []
 
 const HomeScreen = () => {

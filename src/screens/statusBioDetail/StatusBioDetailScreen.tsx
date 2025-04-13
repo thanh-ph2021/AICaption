@@ -1,4 +1,4 @@
-import React, { use } from "react"
+import React from "react"
 import { Image, Platform, StyleSheet, TouchableOpacity, View } from "react-native"
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
@@ -9,7 +9,7 @@ import { Container, Icons, TextComponent } from "@components"
 import { Fonts, Radius, Sizes, Spacing } from "@constants"
 import { useTheme } from "@hooks"
 import { RootStackParamList } from "@navigations"
-import { showNotification } from "@utils"
+import { showNotification, UtilStyles, getIcon } from "@utils"
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'STATUS_BIO_DETAIL'>
 
@@ -19,23 +19,6 @@ const StatusBioDetailScreen = () => {
     const navigation = useNavigation<NavigationProp>()
     const route = useRoute<RouteProp<RootStackParamList, 'STATUS_BIO_DETAIL'>>()
     const { content, socialType, img } = route.params
-
-    const getIcon = () => {
-        switch (socialType) {
-            case 'Instagram':
-                return <Icons.Instagram size={30} />
-            case 'Facebook':
-                return <Icons.Facebook size={30} />
-            case 'Threads':
-                return <Icons.Threads size={30} />
-            case 'Youtube':
-                return <Icons.Youtube size={30} />
-            case 'X':
-                return <Icons.X size={30} />
-            case 'LinkedIn':
-                return <Icons.LinkedIn size={30} />
-        }
-    }
 
     const copyToClipboard = () => {
         showNotification("Copied successfully!", () => <Icons.Success size={30} />)
@@ -61,20 +44,20 @@ const StatusBioDetailScreen = () => {
     return (
         <Container>
             {/* Header */}
-            <View style={styles.header}>
+            <View style={UtilStyles.header}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Icons.Back size={30} color={colors.text} />
                 </TouchableOpacity>
                 <TextComponent text="Detail" style={Fonts.h2} />
-                <View style={styles.headerSpacer} />
+                <View style={UtilStyles.headerSpacer} />
             </View>
 
             {/* Content */}
             <View style={styles.body}>
                 {img ? <Image source={{ uri: img }} style={[styles.image, { width: Sizes.width - (Spacing.l * 2), height: Sizes.height * 0.6 }]} /> : null}
                 <View style={[styles.textBox, { backgroundColor: colors.containerBackground }]}>
-                    {getIcon()}
-                    <TextComponent text={content} style={[Fonts.body3, styles.contentText]} />
+                    {getIcon(socialType)}
+                    <TextComponent text={content} style={[Fonts.body3, styles.contentText]} showFullLine />
                 </View>
                 <View style={styles.actionRow}>
                     <TouchableOpacity onPress={copyToClipboard}>
@@ -92,16 +75,6 @@ const StatusBioDetailScreen = () => {
 export default StatusBioDetailScreen
 
 const styles = StyleSheet.create({
-    header: {
-        flexDirection: 'row',
-        justifyContent: "space-between",
-        alignItems: "center",
-        paddingHorizontal: 20
-    },
-    headerSpacer: {
-        width: 30,
-        height: 30
-    },
     body: {
         flex: 1,
         alignItems: "center",
