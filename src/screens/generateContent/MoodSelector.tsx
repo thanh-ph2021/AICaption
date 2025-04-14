@@ -39,7 +39,8 @@ const MoodSelector: React.FC<MoodSelectorProps> = ({
                         </TouchableOpacity>
                     )
                 }}
-                contentContainerStyle={{ gap: Spacing.m }}
+                contentContainerStyle={{ gap: Spacing.m}}
+                style={{alignSelf: 'center'}}
             />
         </View>
     )

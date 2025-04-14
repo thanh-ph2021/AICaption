@@ -23,6 +23,8 @@
       "@assets": ["src/assets/index.ts"],
       "@apis/*": ["src/apis/*"],
       "@apis": ["src/apis/index.ts"],
+      "@storage/*": ["src/storage/*"],
+      "@storage": ["src/storage/index.ts"],
     },
   },
 }

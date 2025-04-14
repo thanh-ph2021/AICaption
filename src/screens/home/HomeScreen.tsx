@@ -4,23 +4,17 @@ import moment from 'moment'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
-import { useTheme } from '@hooks'
+import { useAppSelector, useTheme } from '@hooks'
 import { Container, TextComponent, Icons } from "@components"
 import { Fonts, Spacing, Radius } from '@constants'
 import { RootStackParamList, ROUTES } from '@navigations'
-
-const DATA: any[] = []
-
+import { GeneratedItem, generatedList } from '@store'
 const HomeScreen = () => {
-
     const { colors } = useTheme()
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
+    const datas: GeneratedItem[] = useAppSelector(generatedList)
 
-    useEffect(() => {
-
-    }, [])
-
-    const renderItem = ({ item }: { item: { id: number, content: string, socialType: string, date: Date, img: string } }) => {
+    const renderItem = ({ item }: { item: GeneratedItem }) => {
         const containerStyle = [
             styles.itemContainer,
             { backgroundColor: colors.containerBackground },
@@ -30,13 +24,13 @@ const HomeScreen = () => {
         return (
             <TouchableOpacity
                 style={containerStyle}
-                onPress={() => navigation.navigate(ROUTES.STATUS_BIO_DETAIL, { content: item.content, socialType: item.socialType, img: item.img })}>
+                onPress={() => navigation.navigate(ROUTES.STATUS_BIO_DETAIL, { content: item.content, socialType: item.socialType, img: item.img || '' })}>
                 {item.img ? <Image source={{ uri: item.img }} style={styles.image} /> : null}
                 <View style={styles.itemContent}>
-                    <TextComponent text={item.content} style={Fonts.body4} />
+                    <TextComponent text={item.content} style={Fonts.body4} numberOfLines={2} canExpand={false}/>
                     <View style={styles.timeRow}>
                         <Icons.Clock color={colors.text} size={20} />
-                        <TextComponent text={moment(item.date).startOf('hour').fromNow()} style={Fonts.body4} />
+                        <TextComponent text={moment(item.createdAt).startOf('hour').fromNow()} style={Fonts.body4} />
                     </View>
                 </View>
             </TouchableOpacity>
@@ -48,7 +42,7 @@ const HomeScreen = () => {
             <View style={styles.header}>
                 <TextComponent text="AI Caption" style={Fonts.h2} />
                 <FlatList
-                    data={DATA}
+                    data={datas}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={renderItem}
                     showsVerticalScrollIndicator={false}

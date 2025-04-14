@@ -12,11 +12,11 @@ interface Props {
     title?: boolean,
     numberOfLines?: number,
     showFullLine?: boolean,
-    isShowTextRead?: boolean
+    canExpand?: boolean
 }
 const TextComponent = (props: Props) => {
 
-    const { text, color, size, flex, style, title, numberOfLines, showFullLine, isShowTextRead } = props
+    const { text, color, size, flex, style, title, numberOfLines, showFullLine, canExpand = true } = props
     const [textShown, setTextShown] = useState(false)
     const [lengthMore, setLengthMore] = useState(false)
     const { colors } = useTheme()
@@ -28,9 +28,7 @@ const TextComponent = (props: Props) => {
     }
 
     const onTextLayout = (event: NativeSyntheticEvent<TextLayoutEventData>) => {
-        if (!isShowTextRead) {
-            setLengthMore(event.nativeEvent.lines.length > (numberOfLines ?? 3))
-        }
+        setLengthMore(event.nativeEvent.lines.length > (numberOfLines ?? 3))
     }
 
     return (
@@ -52,7 +50,7 @@ const TextComponent = (props: Props) => {
                 {text}
             </Text>
 
-            {lengthMore && !showFullLine ? <Text
+            {canExpand && lengthMore && !showFullLine ? <Text
                 onPress={toggleNumberOfLines}
                 style={{ lineHeight: 21, marginTop: 10, color: colors.primary }}
             >{textShown ? 'Read less' : 'Read more'}</Text> : <></>}

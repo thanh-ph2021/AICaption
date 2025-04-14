@@ -4,9 +4,9 @@ import { RouteProp, useNavigation, useRoute } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 
 import { Container, Icons, TextComponent } from "@components"
-import { getOptionsByType, getTitleByType, Languages, Length, Topics, UtilStyles, WritingStyles } from "@utils"
+import { getOptionsByType, getTitleByType, Languages, Length, showNotification, Topics, UtilStyles, WritingStyles } from "@utils"
 import { Fonts, Spacing } from "@constants"
-import { useTheme } from "@hooks"
+import { useAppDispatch, useTheme } from "@hooks"
 import { RootStackParamList, ROUTES } from "@navigations"
 import PromptInput from "./PromptInput"
 import ImageSelector from "./ImageSelector"
@@ -18,6 +18,7 @@ import SocialSelector from "./SocialSelector"
 import EmojiToggle from "./EmojiToggle"
 import SelectModal from "./SelectModal"
 import { generate } from "@apis"
+import { addGeneratedItem } from "@store"
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'GENERATE_CONTENT'>
 const moods = [
@@ -34,6 +35,7 @@ const GenerateContentScreen = () => {
     const navigation = useNavigation<NavigationProp>()
     const route = useRoute<RouteProp<RootStackParamList, 'GENERATE_CONTENT'>>()
     const { type } = route.params
+    const dispatch = useAppDispatch()
 
     const [imageUri, setImageUri] = useState<string>("")
     const [prompt, setPrompt] = useState<string>("")
@@ -56,7 +58,7 @@ const GenerateContentScreen = () => {
         setLoading(true)
 
         try {
-            const content = await generate({
+            const object = {
                 type,
                 prompt,
                 mood,
@@ -66,21 +68,27 @@ const GenerateContentScreen = () => {
                 language: language,
                 length: length,
                 includeEmoji,
-                imageUri,
-            })
-    
+                imageUri
+            }
+
+            const content = await generate(object)
+
             navigation.navigate(ROUTES.STATUS_BIO_DETAIL, {
-                content,
-                socialType: type,
-                img: imageUri
+                content: content.text,
+                socialType: social,
+                img: content.img,
+                title: 'Result',
             })
+
+            dispatch(addGeneratedItem({
+                content: content.text,
+                socialType: social,
+                img: content.img,
+              }))
+
         } catch (error) {
             console.error(error)
-            navigation.navigate(ROUTES.STATUS_BIO_DETAIL, {
-                content: "Đã xảy ra lỗi khi tạo nội dung.",
-                socialType: type,
-                img: imageUri
-            })
+            showNotification("Something went wrong while generating the content.", () => <Icons.Danger size={20} />)
         } finally {
             setLoading(false)
         }

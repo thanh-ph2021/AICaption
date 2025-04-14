@@ -8,6 +8,6 @@ export type BottomTabParamList = {
 
 export type RootStackParamList = {
     [ROUTES.TABS]: undefined,
-    [ROUTES.STATUS_BIO_DETAIL]: { content: string, socialType: string, img: string },
+    [ROUTES.STATUS_BIO_DETAIL]: { content: string, socialType: string, img: string, title?: string },
     [ROUTES.GENERATE_CONTENT]: { type: string },
 }
