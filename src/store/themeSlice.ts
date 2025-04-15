@@ -17,10 +17,15 @@ const themeSlice = createSlice({
         state.type = newType
         state.themeData = newType === 'light' ? LightTheme : DarkTheme
       },
+      setTheme: (state, action) => {
+        const newType = action.payload
+        state.type = newType
+        state.themeData = newType === 'light' ? LightTheme : DarkTheme
+      }
     },
   })
   
-  export const { toggleTheme } = themeSlice.actions
+  export const { toggleTheme, setTheme } = themeSlice.actions
   export default themeSlice.reducer
 
   export const selectTheme = (state: RootState) => state.theme.themeData

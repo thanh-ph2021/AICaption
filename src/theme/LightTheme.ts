@@ -1,7 +1,7 @@
 import { ThemeData } from "./type"
 
 const LightTheme: ThemeData = {
-    isDark: true,
+    isDark: false,
     colors: {
         primary: '#63B4FF',
         primaryLight: '#D5EBFF',

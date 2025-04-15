@@ -1,8 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import themeReducer from './themeSlice'
-import generateReducer from './generateSlice'
-import reducer, {
+import themeReducer, { toggleTheme, setTheme } from './themeSlice'
+import generateReducer, {
   addGeneratedItem,
   setGeneratedList,
   generatedList
@@ -16,10 +15,11 @@ export const store = configureStore({
 })
 
 export {
-  reducer,
   addGeneratedItem,
   setGeneratedList,
-  generatedList
+  generatedList,
+  toggleTheme,
+  setTheme
 }
 
 export * from './type'

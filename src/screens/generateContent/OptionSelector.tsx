@@ -17,12 +17,13 @@ const OptionSelector: React.FC<OptionSelectorProps> = ({
     onPress,
 }) => {
     const { colors } = useTheme()
+
     return (
         <View style={styles.container}>
             <TextComponent text={label} style={Fonts.body3} />
-            <TouchableOpacity style={styles.selector} onPress={onPress}>
-                <Text style={styles.value}>{selectedValue}</Text>
-                <Icons.ArrowDown size={24} color={colors.text} />
+            <TouchableOpacity style={[styles.selector, { backgroundColor: colors.surface }]} onPress={onPress}>
+                <TextComponent text={selectedValue} style={Fonts.body4}/>
+                <Icons.ArrowDown size={24} color={colors.placehodler} />
             </TouchableOpacity>
         </View>
     )
@@ -44,7 +45,6 @@ const styles = StyleSheet.create({
         marginBottom: 4,
     },
     selector: {
-        backgroundColor: '#f0f0f0',
         borderRadius: Radius.l,
         paddingHorizontal: Spacing.l,
         paddingVertical: Spacing.s,
@@ -52,8 +52,5 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-    },
-    value: {
-        fontSize: 14,
     },
 })

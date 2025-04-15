@@ -5,21 +5,21 @@ const DarkTheme: ThemeData = {
     colors: {
         primary: '#63B4FF',
         primaryLight: '#D5EBFF',
-        secondary: '#FFFFFF',
-        accent: '#FFFFFF',
-        highlight: '#FFFFFF',
+        secondary: '#3D5A80',
+        accent: '#EE6C4D',
+        highlight: '#98C1D9',
 
-        background: "#000000",
-        containerBackground: "#DEDEDE",
-        surface: "#D9D9D9",
+        background: "#121212",
+        containerBackground: "#1E1E1E",
+        surface: "#2C2C2C", 
 
         text: '#FFFFFF',
         textPrimary: '#FFFFFF',
-        textSecondary: '#FFFFFF',
+        textSecondary: '#AAAAAA',
 
-        info: '#FFFFFF',
+        info: '#80CE8E',
 
-        placehodler: '#A4A1A1',
+        placehodler: '#666666',
 
     }
 }

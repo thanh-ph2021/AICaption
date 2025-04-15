@@ -15,7 +15,7 @@ const Container: React.FC<ContainerProps> = ({ children, style }) => {
     const { colors, isDark } = useTheme()
     return (
         <SafeAreaView style={[{ flex: 1, backgroundColor: colors.background, paddingTop: Spacing.m }, style]}>
-            <StatusBar backgroundColor='transparent' translucent barStyle={isDark ? 'dark-content' : 'light-content'} />
+            <StatusBar backgroundColor='transparent' translucent barStyle={isDark ? 'light-content' : 'dark-content'} />
             {children}
         </SafeAreaView>
     )

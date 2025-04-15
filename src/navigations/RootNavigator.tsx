@@ -4,8 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { ROUTES } from './routes'
 import BottomTabsNavigator from './BottomTabsNavigator'
 import { GenerateContentScreen, StatusBioDetailScreen } from '@screens'
-import { setGeneratedList } from "@store"
-import { getGeneratedList } from "@storage"
+import { setGeneratedList, setTheme } from "@store"
+import { getGeneratedList, getThemeFromStorage } from "@storage"
 import { useAppDispatch } from "@hooks"
 
 const Stack = createNativeStackNavigator()
@@ -17,6 +17,11 @@ const RootNavigator = () => {
     const loadData = async () => {
       const saved = getGeneratedList()
       if (saved) dispatch(setGeneratedList(saved))
+
+      const theme = await getThemeFromStorage()
+      if (theme) {
+        dispatch(setTheme(theme))
+      }
     }
 
     loadData()

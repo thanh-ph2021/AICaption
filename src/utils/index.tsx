@@ -22,7 +22,7 @@ export const showNotification = (title: string, Icon: () => React.ReactElement) 
 export const getIcon = (socialType: string, size?: number) => {
     switch (socialType) {
         case 'Instagram':
-            return <Icons.Instagram size={size ? size : 30} />
+            return <Icons.Instagram size={size ? size : 30}/>
         case 'Facebook':
             return <Icons.Facebook size={size ? size : 30} />
         case 'Threads':

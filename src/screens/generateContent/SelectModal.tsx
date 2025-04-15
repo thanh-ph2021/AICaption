@@ -34,7 +34,7 @@ const SelectModal: React.FC<SelectModalProps> = ({
   return (
     <Modal visible={visible} transparent animationType="fade">
       <Pressable style={styles.overlay} onPress={onClose}>
-        <View style={styles.modal}>
+        <View style={[styles.modal, {backgroundColor: colors.containerBackground}]}>
           <TextComponent text={title} style={styles.title} />
           <TouchableOpacity style={{ position: 'absolute', top: Spacing.l, right: Spacing.l }} onPress={onClose}>
             <Icons.CloseCircle size={24} color={colors.text} />
@@ -44,10 +44,10 @@ const SelectModal: React.FC<SelectModalProps> = ({
             data={options}
             keyExtractor={(item) => item.value}
             renderItem={({ item }) => {
-              const isSelected = item.value === selectedValue
+              const isSelected = item.label === selectedValue
               return (
                 <TouchableOpacity
-                  style={[styles.item, {backgroundColor: isSelected ? colors.primary : colors.surface}]}
+                  style={[styles.item, {backgroundColor: isSelected ? colors.primary : colors.background}]}
                   onPress={() => {
                     onSelect(item.label)
                     onClose()
@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
   },
   modal: {
     width: '90%',
-    backgroundColor: '#fff',
     borderRadius: Radius.l,
     padding: Spacing.l,
     maxHeight: '90%',

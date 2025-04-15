@@ -20,7 +20,7 @@ const EmojiToggle: React.FC<EmojiToggleProps> = ({ value, onValueChange }) => {
                 value={value}
                 onValueChange={onValueChange}
                 trackColor={{ false: colors.surface, true: colors.primaryLight }}
-                thumbColor={value ? colors.primary : colors.background}
+                thumbColor={value ? colors.primary : colors.placehodler}
             />
         </View>
     )

@@ -1,8 +1,9 @@
 import React from 'react'
 import { View, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
 
-import { Spacing } from '@constants'
+import { Radius, Spacing } from '@constants'
 import { getIcon } from '@utils'
+import { useTheme } from '@hooks'
 
 interface SocialSelectorProps {
     socials: string[]
@@ -15,8 +16,9 @@ const SocialSelector: React.FC<SocialSelectorProps> = ({
     selectedSocial,
     onSelectSocial,
 }) => {
+    const { colors } = useTheme()
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: colors.surface}]}>
             <FlatList
                 data={socials}
                 horizontal
@@ -26,7 +28,7 @@ const SocialSelector: React.FC<SocialSelectorProps> = ({
                     const isSelected = item === selectedSocial
                     return (
                         <TouchableOpacity
-                            style={styles.moodItem}
+                            style={styles.socialItem}
                             onPress={() => onSelectSocial(item)}
                         >
                             {getIcon(item, isSelected ? 50 : 24)}
@@ -46,19 +48,10 @@ const styles = StyleSheet.create({
         marginVertical: Spacing.l,
         alignItems: 'center',
         justifyContent: 'center',
+        borderRadius: Radius.circle,
+        paddingVertical: Spacing.s,
     },
-    moodItem: {
+    socialItem: {
         justifyContent: 'center',
-    },
-    selectedMoodItem: {
-        backgroundColor: '#4A90E2',
-    },
-    moodText: {
-        fontSize: 14,
-        color: '#333',
-    },
-    selectedMoodText: {
-        color: '#fff',
-        fontWeight: '600',
     },
 })

@@ -9,6 +9,7 @@ import { Container, TextComponent, Icons } from "@components"
 import { Fonts, Spacing, Radius } from '@constants'
 import { RootStackParamList, ROUTES } from '@navigations'
 import { GeneratedItem, generatedList } from '@store'
+
 const HomeScreen = () => {
     const { colors } = useTheme()
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
