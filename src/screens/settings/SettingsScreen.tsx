@@ -1,22 +1,27 @@
-import React from "react"
+import React, { useState } from "react"
 import { Linking, StyleSheet, Switch, TouchableOpacity, View } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
+import { useTranslation } from "react-i18next"
 
 import { Container, Icons, TextComponent } from "@components"
 import { Fonts, Radius, Spacing } from "@constants"
-import { UtilStyles } from "@utils"
 import { useAppDispatch, useTheme } from "@hooks"
-import { RootStackParamList } from "@navigations"
+import { RootStackParamList, ROUTES } from "@navigations"
 import { toggleTheme } from "@store"
-import { setThemeToStorage } from "@storage"
+import { setLanguageToStorage, setThemeToStorage } from "@storage"
+import SelectModal from "@screens/generateContent/SelectModal"
 
 const IconSize = 24
+const LANGUAGE_DATA = ['vi', 'en']
 
 const SetttingsScreen = () => {
     const { colors, isDark } = useTheme()
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
     const dispatch = useAppDispatch()
+    const { t, i18n } = useTranslation()
+    const [language, setLanguage] = useState<string>(i18n.language)
+    const [modalVisible, setModalVisible] = useState(false)
 
     const toggleSwitch = (value: boolean) => {
         const newTheme = value ? 'dark' : 'light'
@@ -24,22 +29,22 @@ const SetttingsScreen = () => {
         setThemeToStorage(newTheme)
     }
 
+    const handleLanguageChange = (value: string) => {
+        i18n.changeLanguage(value)
+        setLanguage(value)
+        setLanguageToStorage(value)
+    }
+
     const renderLanguage = () => {
         return (
-            <TextComponent text={'Tiếng việt'} style={{ opacity: 0.5 }} />
+            <TextComponent text={t(`${language}`)} style={{ opacity: 0.5 }} />
         )
     }
 
     return (
         <Container style={{ backgroundColor: colors.containerBackground }}>
             {/* Header */}
-            <View style={UtilStyles.header}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Icons.Back size={30} color={colors.text} />
-                </TouchableOpacity>
-                <TextComponent text={"Settings"} style={Fonts.h2} />
-                <View style={UtilStyles.headerSpacer} />
-            </View>
+            <TextComponent text={t("settings")} style={{ textAlign: 'center', ...Fonts.h2 }} upperCase/>
 
             {/* Content */}
             <View style={[styles.sectionContainer, { backgroundColor: colors.background }]}>
@@ -51,20 +56,20 @@ const SetttingsScreen = () => {
                         <View style={[styles.iconContainer, { backgroundColor: '#DF5252' }]}>
                             <Icons.User color={'white'} size={IconSize} />
                         </View>
-                        <TextComponent text={"Accounts and Sync"} style={Fonts.body3} />
+                        <TextComponent text={t("accSync")} style={Fonts.body3} />
                     </View>
 
                     <Icons.ArrowRight color={colors.text} size={IconSize} />
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.rowItem}
-                    onPress={() => { }}
+                    onPress={() => setModalVisible(true)}
                 >
                     <View style={styles.rowLeftContainer}>
                         <View style={[styles.iconContainer, { backgroundColor: colors.primary }]}>
                             <Icons.Language color={'white'} size={IconSize} />
                         </View>
-                        <TextComponent text={"Language"} style={Fonts.body3} />
+                        <TextComponent text={t("language")} style={Fonts.body3} />
                     </View>
 
                     {renderLanguage()}
@@ -76,7 +81,7 @@ const SetttingsScreen = () => {
                         <View style={[styles.iconContainer, { backgroundColor: 'black' }]}>
                             <Icons.Moon color={'white'} size={IconSize} />
                         </View>
-                        <TextComponent text={"Dark mode"} style={Fonts.body3} />
+                        <TextComponent text={t("darkMode")} style={Fonts.body3} />
                     </View>
 
                     <Switch
@@ -88,13 +93,13 @@ const SetttingsScreen = () => {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={[styles.rowItem, { marginBottom: undefined }]}
-                    onPress={() => { }}
+                    onPress={() => navigation.navigate(ROUTES.ABOUT)}
                 >
                     <View style={styles.rowLeftContainer}>
                         <View style={[styles.iconContainer, { backgroundColor: '#613DE0' }]}>
                             <Icons.Info color={'white'} size={IconSize} />
                         </View>
-                        <TextComponent text={"About"} style={Fonts.body3} />
+                        <TextComponent text={t("about")} style={Fonts.body3} />
                     </View>
 
                     <Icons.ArrowRight color={colors.text} size={IconSize} />
@@ -110,7 +115,7 @@ const SetttingsScreen = () => {
                         <View style={[styles.iconContainer, { backgroundColor: '#475CB2' }]}>
                             <Icons.SMSEdit color={'white'} size={IconSize} />
                         </View>
-                        <TextComponent text={"Send Feedback"} style={Fonts.body3} />
+                        <TextComponent text={t("sendFeed")} style={Fonts.body3} />
                     </View>
 
                     <Icons.ArrowRight color={colors.text} size={IconSize} />
@@ -123,12 +128,22 @@ const SetttingsScreen = () => {
                         <View style={[styles.iconContainer, { backgroundColor: '#DFA452' }]}>
                             <Icons.Star color={'white'} size={IconSize} />
                         </View>
-                        <TextComponent text={"Rate the app"} style={Fonts.body3} />
+                        <TextComponent text={t("rateApp")} style={Fonts.body3} />
                     </View>
 
                     <Icons.ArrowRight color={colors.text} size={IconSize} />
                 </TouchableOpacity>
             </View>
+            <SelectModal
+                visible={modalVisible}
+                title={t('language')}
+                options={LANGUAGE_DATA}
+                selectedValue={language}
+                onSelect={handleLanguageChange}
+                onClose={() => {
+                    setModalVisible(false)
+                }}
+            />
         </Container>
     )
 }

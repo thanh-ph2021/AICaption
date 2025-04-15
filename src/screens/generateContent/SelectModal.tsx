@@ -7,16 +7,16 @@ import {
   StyleSheet,
   Pressable,
 } from 'react-native'
+import { useTranslation } from 'react-i18next'
 
 import { Icons, TextComponent } from '@components'
 import { Fonts, Radius, Spacing } from '@constants'
 import { useTheme } from '@hooks'
-import { Option } from './type'
 
 interface SelectModalProps {
   visible: boolean
   title?: string
-  options: Option[]
+  options: string[]
   selectedValue: string | null
   onSelect: (value: string) => void
   onClose: () => void
@@ -31,29 +31,31 @@ const SelectModal: React.FC<SelectModalProps> = ({
   onClose,
 }) => {
   const { colors } = useTheme()
+  const { t } = useTranslation()
+
   return (
     <Modal visible={visible} transparent animationType="fade">
       <Pressable style={styles.overlay} onPress={onClose}>
-        <View style={[styles.modal, {backgroundColor: colors.containerBackground}]}>
-          <TextComponent text={title} style={styles.title} />
+        <View style={[styles.modal, { backgroundColor: colors.containerBackground }]}>
+          <TextComponent text={t(`${title}`)} style={styles.title} />
           <TouchableOpacity style={{ position: 'absolute', top: Spacing.l, right: Spacing.l }} onPress={onClose}>
             <Icons.CloseCircle size={24} color={colors.text} />
           </TouchableOpacity>
 
           <FlatList
             data={options}
-            keyExtractor={(item) => item.value}
+            keyExtractor={(item) => item}
             renderItem={({ item }) => {
-              const isSelected = item.label === selectedValue
+              const isSelected = item === selectedValue
               return (
                 <TouchableOpacity
-                  style={[styles.item, {backgroundColor: isSelected ? colors.primary : colors.background}]}
+                  style={[styles.item, { backgroundColor: isSelected ? colors.primary : colors.background }]}
                   onPress={() => {
-                    onSelect(item.label)
+                    onSelect(item)
                     onClose()
                   }}
                 >
-                  <TextComponent text={item.label} style={Fonts.body3} color={isSelected ? 'white' : colors.text}/>
+                  <TextComponent text={t(`${item}`)} style={Fonts.body3} color={isSelected ? 'white' : colors.text} />
                 </TouchableOpacity>
               )
             }}

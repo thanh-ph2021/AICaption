@@ -2,6 +2,7 @@ import React, { memo, useState } from 'react'
 import { StyleProp, TextStyle, Text, Platform, TextLayoutEventData, NativeSyntheticEvent } from "react-native"
 
 import { useTheme } from '@hooks'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
     text?: string,
@@ -12,14 +13,16 @@ interface Props {
     title?: boolean,
     numberOfLines?: number,
     showFullLine?: boolean,
-    canExpand?: boolean
+    canExpand?: boolean,
+    upperCase?: boolean
 }
 const TextComponent = (props: Props) => {
 
-    const { text, color, size, flex, style, title, numberOfLines, showFullLine, canExpand = true } = props
+    const { text, color, size, flex, style, title, numberOfLines, showFullLine, canExpand = true, upperCase } = props
     const [textShown, setTextShown] = useState(false)
     const [lengthMore, setLengthMore] = useState(false)
     const { colors } = useTheme()
+    const { t } = useTranslation()
 
     const fontSizeDefault = Platform.OS === 'ios' ? 16 : 14
 
@@ -47,7 +50,7 @@ const TextComponent = (props: Props) => {
                 ]}
                 onTextLayout={onTextLayout}
             >
-                {text}
+                {upperCase ? t(`${text}`).toUpperCase() : t(`${text}`)}
             </Text>
 
             {canExpand && lengthMore && !showFullLine ? <Text

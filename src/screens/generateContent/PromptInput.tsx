@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, TextInput, StyleSheet } from 'react-native'
+import { useTranslation } from 'react-i18next'
 
 import { Fonts, Radius, Spacing } from '@constants'
 import { useTheme } from '@hooks'
@@ -13,16 +14,17 @@ interface PromptInputProps {
 const PromptInput: React.FC<PromptInputProps> = ({
     value,
     onChangeText,
-    placeholder = "What's on your mind?",
+    placeholder = "yourMind",
 }) => {
-    const {colors} = useTheme()
+    const { colors } = useTheme()
+    const { t } = useTranslation()
 
     return (
         <View style={styles.container}>
             <TextInput
                 value={value}
                 onChangeText={onChangeText}
-                placeholder={placeholder}
+                placeholder={t(`${placeholder}`)}
                 placeholderTextColor={colors.placehodler}
                 style={[styles.textInput, { backgroundColor: colors.surface, color: colors.text }]}
                 multiline

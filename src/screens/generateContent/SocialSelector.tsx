@@ -17,6 +17,7 @@ const SocialSelector: React.FC<SocialSelectorProps> = ({
     onSelectSocial,
 }) => {
     const { colors } = useTheme()
+    
     return (
         <View style={[styles.container, { backgroundColor: colors.surface}]}>
             <FlatList

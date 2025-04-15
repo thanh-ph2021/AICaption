@@ -4,6 +4,7 @@ import { View, Switch, StyleSheet } from 'react-native'
 import { TextComponent } from '@components'
 import { Fonts, Spacing } from '@constants'
 import { useTheme } from '@hooks'
+import { useTranslation } from 'react-i18next'
 
 interface EmojiToggleProps {
     value: boolean
@@ -12,10 +13,11 @@ interface EmojiToggleProps {
 
 const EmojiToggle: React.FC<EmojiToggleProps> = ({ value, onValueChange }) => {
     const { colors } = useTheme()
+    const {t} = useTranslation()
 
     return (
         <View style={styles.container}>
-            <TextComponent text='Include emoji' style={Fonts.body3} />
+            <TextComponent text={t('InclEmoji')} style={Fonts.body3} />
             <Switch
                 value={value}
                 onValueChange={onValueChange}

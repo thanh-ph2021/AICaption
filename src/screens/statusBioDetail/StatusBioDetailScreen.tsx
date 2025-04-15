@@ -4,6 +4,7 @@ import { RouteProp, useNavigation, useRoute } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import Clipboard from "@react-native-clipboard/clipboard"
 import Share from "react-native-share"
+import { useTranslation } from "react-i18next"
 
 import { Container, Icons, TextComponent } from "@components"
 import { Fonts, Radius, Sizes, Spacing } from "@constants"
@@ -16,13 +17,14 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'STATUS_BIO_
 const StatusBioDetailScreen = () => {
 
     const { colors } = useTheme()
+    const { t } = useTranslation()
     const navigation = useNavigation<NavigationProp>()
     const route = useRoute<RouteProp<RootStackParamList, 'STATUS_BIO_DETAIL'>>()
     const { content, socialType, img, title } = route.params
     const typedText = useTypewriter(content, 80)
 
     const copyToClipboard = () => {
-        showNotification("Copied successfully!", () => <Icons.Success size={30} />)
+        showNotification(t('copySuccess'), () => <Icons.Success size={30} />)
         Clipboard.setString(content)
     }
 
@@ -49,7 +51,7 @@ const StatusBioDetailScreen = () => {
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Icons.Back size={30} color={colors.text} />
                 </TouchableOpacity>
-                <TextComponent text={title ? title : "Detail"} style={Fonts.h2} />
+                <TextComponent text={title ? title : "detail"} style={Fonts.h2} upperCase/>
                 <View style={UtilStyles.headerSpacer} />
             </View>
 
@@ -63,10 +65,10 @@ const StatusBioDetailScreen = () => {
                     </View>
                     <View style={styles.actionRow}>
                         <TouchableOpacity onPress={copyToClipboard}>
-                            <TextComponent text={'COPY'} style={Fonts.h3} />
+                            <TextComponent text={'copy'} style={Fonts.h3} upperCase/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={shareContent}>
-                            <TextComponent text={'SHARE'} style={Fonts.h3} />
+                            <TextComponent text={'share'} style={Fonts.h3} upperCase/>
                         </TouchableOpacity>
                     </View>
                 </View>

@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Icons, TextComponent } from '@components'
 import { useTheme } from '@hooks'
 import { Fonts, Radius, Spacing } from '@constants'
+import { useTranslation } from 'react-i18next'
 
 interface OptionSelectorProps {
     label: string
@@ -17,12 +18,13 @@ const OptionSelector: React.FC<OptionSelectorProps> = ({
     onPress,
 }) => {
     const { colors } = useTheme()
+    const { t } = useTranslation()
 
     return (
         <View style={styles.container}>
             <TextComponent text={label} style={Fonts.body3} />
             <TouchableOpacity style={[styles.selector, { backgroundColor: colors.surface }]} onPress={onPress}>
-                <TextComponent text={selectedValue} style={Fonts.body4}/>
+                <TextComponent text={t(`${selectedValue}`)} style={Fonts.body4} />
                 <Icons.ArrowDown size={24} color={colors.placehodler} />
             </TouchableOpacity>
         </View>

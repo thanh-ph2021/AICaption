@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import { ROUTES } from './routes'
 import BottomTabsNavigator from './BottomTabsNavigator'
-import { GenerateContentScreen, StatusBioDetailScreen } from '@screens'
+import { AboutScreen, GenerateContentScreen, StatusBioDetailScreen } from '@screens'
 import { setGeneratedList, setTheme } from "@store"
 import { getGeneratedList, getThemeFromStorage } from "@storage"
 import { useAppDispatch } from "@hooks"
@@ -32,6 +32,7 @@ const RootNavigator = () => {
       <Stack.Screen name={ROUTES.TABS} component={BottomTabsNavigator} />
       <Stack.Screen name={ROUTES.STATUS_BIO_DETAIL} component={StatusBioDetailScreen} />
       <Stack.Screen name={ROUTES.GENERATE_CONTENT} component={GenerateContentScreen} />
+      <Stack.Screen name={ROUTES.ABOUT} component={AboutScreen} />
     </Stack.Navigator>
   )
 }

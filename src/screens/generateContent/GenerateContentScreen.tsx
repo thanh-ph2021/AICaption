@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { ScrollView, TouchableOpacity, View } from "react-native"
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
+import { useTranslation } from "react-i18next"
 
 import { Container, Icons, TextComponent } from "@components"
 import { getOptionsByType, getTitleByType, Languages, Length, showNotification, Topics, UtilStyles, WritingStyles } from "@utils"
@@ -32,6 +33,7 @@ const socials = ["Instagram", "Facebook", "Threads", "Youtube", "X", "LinkedIn"]
 
 const GenerateContentScreen = () => {
     const { colors } = useTheme()
+    const { t } = useTranslation()
     const navigation = useNavigation<NavigationProp>()
     const route = useRoute<RouteProp<RootStackParamList, 'GENERATE_CONTENT'>>()
     const { type } = route.params
@@ -44,10 +46,10 @@ const GenerateContentScreen = () => {
     const [social, setSocial] = useState<string>(socials[0])
 
     const [selectedOptionType, setSelectedOptionType] = useState<'style' | 'topic' | 'language' | 'length' | null>(null)
-    const [writingStyle, setWritingStyle] = useState<string>(WritingStyles[0].label)
-    const [language, setLanguage] = useState<string>(Languages[0].label)
-    const [topic, setTopic] = useState<string>(Topics[0].label)
-    const [length, setLength] = useState<string>(Length[0].label)
+    const [writingStyle, setWritingStyle] = useState<string>(WritingStyles[0])
+    const [language, setLanguage] = useState<string>(Languages[0])
+    const [topic, setTopic] = useState<string>(Topics[0])
+    const [length, setLength] = useState<string>(Length[0])
 
     const [loading, setLoading] = useState<boolean>(false)
     const [includeEmoji, setIncludeEmoji] = useState<boolean>(true)
@@ -63,10 +65,10 @@ const GenerateContentScreen = () => {
                 prompt,
                 mood,
                 social,
-                style: writingStyle.toLowerCase(),
-                topic: topic,
-                language: language,
-                length: length,
+                style: t(`${writingStyle}`).toLowerCase(),
+                topic: t(`${topic}`),
+                language: t(`${language}`),
+                length: t(`${length}`),
                 includeEmoji,
                 imageUri
             }
@@ -77,7 +79,7 @@ const GenerateContentScreen = () => {
                 content: content.text,
                 socialType: social,
                 img: content.img,
-                title: 'Result',
+                title: 'result',
             })
 
             dispatch(addGeneratedItem({
@@ -129,7 +131,7 @@ const GenerateContentScreen = () => {
                     />
 
                     <OptionSelector
-                        label="Writing style"
+                        label={t('writeStyle')}
                         selectedValue={writingStyle}
                         onPress={() => {
                             setSelectedOptionType('style')
@@ -137,7 +139,7 @@ const GenerateContentScreen = () => {
                         }}
                     />
                     <OptionSelector
-                        label="Language"
+                        label={t('language')}
                         selectedValue={language}
                         onPress={() => {
                             setSelectedOptionType('language')
@@ -160,7 +162,7 @@ const GenerateContentScreen = () => {
                     onChangeText={setPrompt}
                 />
                 <OptionSelector
-                    label="Writing style"
+                    label={t('writeStyle')}
                     selectedValue={writingStyle}
                     onPress={() => {
                         setSelectedOptionType('style')
@@ -168,7 +170,7 @@ const GenerateContentScreen = () => {
                     }}
                 />
                 <OptionSelector
-                    label="Topic"
+                    label={t('topic')}
                     selectedValue={topic}
                     onPress={() => {
                         setSelectedOptionType('topic')
@@ -176,7 +178,7 @@ const GenerateContentScreen = () => {
                     }}
                 />
                 <OptionSelector
-                    label="Language"
+                    label={t('language')}
                     selectedValue={language}
                     onPress={() => {
                         setSelectedOptionType('language')
@@ -184,7 +186,7 @@ const GenerateContentScreen = () => {
                     }}
                 />
                 <OptionSelector
-                    label="Length"
+                    label={t('length')}
                     selectedValue={length}
                     onPress={() => {
                         setSelectedOptionType('length')
@@ -211,7 +213,7 @@ const GenerateContentScreen = () => {
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Icons.Back size={30} color={colors.text} />
                 </TouchableOpacity>
-                <TextComponent text={`${type}`} style={Fonts.h2} />
+                <TextComponent text={`${type}`} style={Fonts.h2} upperCase/>
                 <View style={UtilStyles.headerSpacer} />
             </View>
 
@@ -224,7 +226,7 @@ const GenerateContentScreen = () => {
             <GenerateButton
                 onPress={handleGenerate}
                 isLoading={loading}
-                title="Generate"
+                title="generate"
             />
 
             <SelectModal

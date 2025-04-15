@@ -8,6 +8,7 @@ import { HomeScreen, SettingsScreen } from '@screens'
 import { useTheme } from '@hooks'
 import { Spacing, Radius, Sizes, Fonts } from '@constants'
 import { AppBottomSheet, TextComponent, Icons } from '@components'
+import { useTranslation } from 'react-i18next'
 
 
 const Tab = createBottomTabNavigator<BottomTabParamList>()
@@ -16,6 +17,7 @@ const AppTabBar: React.FC<BottomTabBarProps> = ({ state, navigation }) => {
 
     const { colors } = useTheme()
     const bottomSheetRef = useRef<any>(null)
+    const { t } = useTranslation()
 
     const showBottomSheet = () => {
         if (bottomSheetRef.current) {
@@ -99,7 +101,7 @@ const AppTabBar: React.FC<BottomTabBarProps> = ({ state, navigation }) => {
                 handleIndicatorStyle={{ display: 'none' }}
             >
                 <View style={styles.contentContainer}>
-                    <TextComponent text={'Create new'} style={{ ...Fonts.h3 }} />
+                    <TextComponent text={t('createNew')} style={{ ...Fonts.h3 }} />
                     <View style={styles.row}>
                         <TouchableOpacity style={styles.item} onPress={() => navigateToCreate('Status')}>
                             <View style={[styles.iconWrapper, { backgroundColor: colors.secondary }]}>

@@ -1,5 +1,6 @@
 import React from 'react'
 import { TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native'
+import { useTranslation } from 'react-i18next'
 
 import { useTheme } from '@hooks'
 import { TextComponent } from '@components'
@@ -14,9 +15,10 @@ interface GenerateButtonProps {
 const GenerateButton: React.FC<GenerateButtonProps> = ({
     onPress,
     isLoading = false,
-    title = 'Generate',
+    title = 'generate',
 }) => {
     const { colors } = useTheme()
+    const { t } = useTranslation()
 
     return (
         <TouchableOpacity
@@ -28,7 +30,7 @@ const GenerateButton: React.FC<GenerateButtonProps> = ({
             {isLoading ? (
                 <ActivityIndicator color="#fff" />
             ) : (
-                <TextComponent text={title.toUpperCase()} style={Fonts.h3} color='white' />
+                <TextComponent text={t(`${title}`).toUpperCase()} style={Fonts.h3} color='white' />
             )}
         </TouchableOpacity>
     );

@@ -39,7 +39,7 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({ imageUri, onImageSelected
             ) : (
                 <View style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
                     <Icons.Gallery size={24} color={colors.placehodler}/>
-                    <TextComponent text="Pick an image" style={{ marginTop: Spacing.s, color: colors.placehodler }} />
+                    <TextComponent text="pickImage" style={{ marginTop: Spacing.s, color: colors.placehodler }} />
                 </View>
             )}
         </TouchableOpacity>

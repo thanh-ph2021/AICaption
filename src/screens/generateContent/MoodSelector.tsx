@@ -3,6 +3,8 @@ import { View, TouchableOpacity, FlatList, StyleSheet, Image } from 'react-nativ
 
 import { Fonts, Radius, Spacing } from '@constants'
 import { TextComponent } from '@components'
+import { useTheme } from '@hooks'
+import { useTranslation } from 'react-i18next'
 
 export interface Mood {
     label: string;
@@ -20,9 +22,12 @@ const MoodSelector: React.FC<MoodSelectorProps> = ({
     selectedMood,
     onSelectMood,
 }) => {
+    const { colors } = useTheme()
+    const { t } = useTranslation()
+
     return (
         <View style={styles.container}>
-            <TextComponent text="Select a mood" style={Fonts.body3} />
+            <TextComponent text={t('selectMood')} style={Fonts.body3} />
             <FlatList
                 data={moods}
                 horizontal
@@ -32,15 +37,15 @@ const MoodSelector: React.FC<MoodSelectorProps> = ({
                     const isSelected = item.label === selectedMood;
                     return (
                         <TouchableOpacity
-                            style={[styles.moodItem, isSelected && styles.selectedMoodItem]}
+                            style={[styles.moodItem, { backgroundColor: isSelected ? colors.primary : colors.surface }]}
                             onPress={() => onSelectMood(item.label)}
                         >
                             <Image source={item.image} style={{ width: 30, height: 30 }} />
                         </TouchableOpacity>
                     )
                 }}
-                contentContainerStyle={{ gap: Spacing.m}}
-                style={{alignSelf: 'center'}}
+                contentContainerStyle={{ gap: Spacing.m }}
+                style={{ alignSelf: 'center' }}
             />
         </View>
     )
@@ -56,7 +61,6 @@ const styles = StyleSheet.create({
     moodItem: {
         width: 55,
         height: 55,
-        backgroundColor: '#f1f1f1',
         borderRadius: Radius.circle,
         alignItems: 'center',
         justifyContent: 'center',

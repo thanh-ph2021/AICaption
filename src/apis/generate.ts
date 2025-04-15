@@ -67,7 +67,7 @@ export const generate = async ({
         if (type == 'Status') {
             fullPrompt += `Create a ${style} status in ${language} for ${social}. Mood: "${mood}". Additional context: "${prompt}". ${imageBase64 ? "Analyze the image content and include relevant descriptions in the status." : ""} Make the result engaging and suitable for a social media post. Provide only the status as the result. Not optional.`
         } else if (type == 'Bio') {
-            fullPrompt += `Create a ${style} bio in ${language} for ${social}.${topic ? `Focus on the topic: "${topic}".` : ""} Desired length: ${length}.${includeEmoji ? "Include emojis where appropriate." : "Do not include emojis."}Additional context: "${prompt}". Make sure the bio fits well for a profile description on ${social}.Provide only the bio as the result. Not optional.`
+            fullPrompt += `Create a ${style} bio in ${language} for ${social}.${topic ? `Focus on the topic: "${topic}".` : ""} Desired length: ${length}.${includeEmoji ? "Include emojis where appropriate." : "Do not include emojis."} Additional context: "${prompt}". Make sure the bio fits well for a profile description on ${social}.Provide only the bio as the result. Not optional.`
         }
 
         const result = await ai.models.generateContent({

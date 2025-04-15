@@ -4,3 +4,4 @@ export const storage = new MMKV()
 
 export * from './themeStorage'
 export * from './generateStorage'
+export * from './languageStorage'

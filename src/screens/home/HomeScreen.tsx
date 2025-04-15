@@ -41,7 +41,7 @@ const HomeScreen = () => {
     return (
         <Container>
             <View style={styles.header}>
-                <TextComponent text="AI Caption" style={Fonts.h2} />
+                <TextComponent text="AI Caption" style={Fonts.h2} upperCase/>
                 <FlatList
                     data={datas}
                     keyExtractor={(item) => item.id.toString()}

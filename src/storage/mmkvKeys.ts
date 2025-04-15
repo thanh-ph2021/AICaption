@@ -1,4 +1,5 @@
 export const STORAGE_KEYS = {
     THEME: 'APP_THEME',
     GENERATED_LIST: 'GENERATED_LIST',
+    LANGUAGE: 'LANGUAGE',
 }
