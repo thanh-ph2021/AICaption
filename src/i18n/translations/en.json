@@ -62,5 +62,13 @@
     "copySuccess": "Copied successfully!",
     "copy": "Copy",
     "share": "Share",
-    "checkUpdate": "Check update"
+    "checkUpdate": "Check update",
+    "logout": "Logout",
+    "syncingData": "Syncing data",
+    "backupData": "Backup data",
+    "dataBackupSuccessful": "Data backup successful",
+    "backup": "Backup",
+    "backupRecord": "Backup record",
+    "loadingData": "Loading data",
+    "backingUpData": "Backing up data"
 }

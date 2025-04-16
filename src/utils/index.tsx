@@ -1,8 +1,13 @@
 import { StyleSheet, View } from "react-native"
 import { Notifier } from "react-native-notifier"
+import RNFS from 'react-native-fs'
+import { GoogleSignin } from "@react-native-google-signin/google-signin"
 
 import { Fonts, Spacing } from "@constants"
 import { Icons, TextComponent } from "@components"
+import { BackupDataModel } from "@screens/accountSync"
+import { GoogleDrive } from "@apis"
+import { saveLastSyncTime } from "@storage"
 
 export const showNotification = (title: string, Icon: () => React.ReactElement) => {
   Notifier.showNotification({
@@ -75,6 +80,29 @@ export const getTitleByType = (selectedOptionType: string | null) => {
 }
 
 export { default as UtilStyles } from "./UtilStyles"
+
+export const saveDataToFile = async (data: BackupDataModel) => {
+  const path = `${RNFS.DocumentDirectoryPath}/ai-caption-data.json`
+  const jsonData = JSON.stringify(data, null, 2)
+
+  try {
+      await RNFS.writeFile(path, jsonData, "utf8")
+      console.log("File saved at:", path)
+      return path
+  } catch (error) {
+      console.error("Error saving file:", error)
+  }
+}
+
+export const handleAsyncData = async (data: BackupDataModel) => {
+  const date = new Date().toISOString()
+  const filePath = await saveDataToFile(data)
+  const token = await GoogleSignin.getTokens()
+  if (filePath && token) {
+      await GoogleDrive.uploadToDrive(token.accessToken, filePath)
+      await saveLastSyncTime(date)
+  }
+}
 
 const styles = StyleSheet.create({
   container: {

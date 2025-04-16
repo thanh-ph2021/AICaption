@@ -11,4 +11,5 @@ export type RootStackParamList = {
     [ROUTES.STATUS_BIO_DETAIL]: { content: string, socialType: string, img: string, title?: string },
     [ROUTES.GENERATE_CONTENT]: { type: string },
     [ROUTES.ABOUT]: undefined,
+    [ROUTES.ACCOUNT_SYNC]: undefined,
 }

@@ -62,5 +62,13 @@
     "copySuccess": "Sao chép thành công!",
     "copy": "Sao chép",
     "share": "Chia sẻ",
-    "checkUpdate": "Kiểm tra cập nhật"
+    "checkUpdate": "Kiểm tra cập nhật",
+    "logout": "Đăng xuất",
+    "syncingData": "Đang đồng bộ dữ liệu",
+    "backupData": "Sao lưu dữ liệu",
+    "dataBackupSuccessful": "Sao lưu dữ liệu thành công",
+    "backup": "Sao lưu",
+    "backupRecord": "Bản ghi sao lưu",
+    "loadingData": "Đang tải dữ liệu",
+    "backingUpData": "Đang sao lưu dữ liệu"
 }

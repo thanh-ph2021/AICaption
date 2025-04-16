@@ -33,7 +33,9 @@ const generateSlice = createSlice({
             state,
             action: PayloadAction<GeneratedItem[]>
         ) => {
-            state.items = action.payload
+            const datas: GeneratedItem[] = [...state.items].concat([...action.payload])
+            const uniqueDatas = [...new Map(datas.map(item => [item.id, item])).values()]
+            state.items = uniqueDatas
             saveGeneratedList(state.items)
         }
     },

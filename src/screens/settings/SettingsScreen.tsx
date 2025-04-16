@@ -50,7 +50,7 @@ const SetttingsScreen = () => {
             <View style={[styles.sectionContainer, { backgroundColor: colors.background }]}>
                 <TouchableOpacity
                     style={styles.rowItem}
-                    onPress={() => { }}
+                    onPress={() => navigation.navigate(ROUTES.ACCOUNT_SYNC)}
                 >
                     <View style={styles.rowLeftContainer}>
                         <View style={[styles.iconContainer, { backgroundColor: '#DF5252' }]}>
