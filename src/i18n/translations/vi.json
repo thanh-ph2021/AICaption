@@ -70,5 +70,11 @@
     "backup": "Sao lưu",
     "backupRecord": "Bản ghi sao lưu",
     "loadingData": "Đang tải dữ liệu",
-    "backingUpData": "Đang sao lưu dữ liệu"
+    "backingUpData": "Đang sao lưu dữ liệu",
+    "cancel": "Hủy",
+    "update": "Cập nhật",
+    "newVersionAvailable": "Có phiên bản mới!",
+    "pleaseUpdate": "Phiên bản mới đã được phát hành, vui lòng cập nhật",
+    "updateFailed": "Cập nhật thất bại!",
+    "updating": "Đang cập nhật... {{something}}%"
 }

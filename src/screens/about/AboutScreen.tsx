@@ -44,10 +44,10 @@ const AboutScreen = () => {
                                 onPress={() => {
                                     switch (index) {
                                         case 0:
-                                            Linking.openURL("https://thanh-ph2021.github.io/react-website/#/privacy-policy/1")
+                                            Linking.openURL("https://thanh-ph2021.github.io/react-website/#/privacy-policy/2")
                                             break
                                         case 1:
-                                            Linking.openURL("https://thanh-ph2021.github.io/react-website/#/terms-of-service/1")
+                                            Linking.openURL("https://thanh-ph2021.github.io/react-website/#/terms-of-service/2")
                                             break
                                         case 2:
                                             Linking.openURL("https://play.google.com/store/apps/details?id=com.aicaption")

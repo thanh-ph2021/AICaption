@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { FlatList, Image, StyleSheet, TouchableOpacity, View } from 'react-native'
 import moment from 'moment'
 import { useNavigation } from '@react-navigation/native'
@@ -9,6 +9,7 @@ import { Container, TextComponent, Icons } from "@components"
 import { Fonts, Spacing, Radius } from '@constants'
 import { RootStackParamList, ROUTES } from '@navigations'
 import { GeneratedItem, generatedList } from '@store'
+import { name } from '../../../package.json'
 
 const HomeScreen = () => {
     const { colors } = useTheme()
@@ -28,7 +29,7 @@ const HomeScreen = () => {
                 onPress={() => navigation.navigate(ROUTES.STATUS_BIO_DETAIL, { content: item.content, socialType: item.socialType, img: item.img || '' })}>
                 {item.img ? <Image source={{ uri: item.img }} style={styles.image} /> : null}
                 <View style={styles.itemContent}>
-                    <TextComponent text={item.content} style={Fonts.body4} numberOfLines={2} canExpand={false}/>
+                    <TextComponent text={item.content} style={Fonts.body4} numberOfLines={2} canExpand={false} />
                     <View style={styles.timeRow}>
                         <Icons.Clock color={colors.text} size={20} />
                         <TextComponent text={moment(item.createdAt).startOf('hour').fromNow()} style={Fonts.body4} />
@@ -41,7 +42,7 @@ const HomeScreen = () => {
     return (
         <Container>
             <View style={styles.header}>
-                <TextComponent text="AI Caption" style={Fonts.h2} upperCase/>
+                <TextComponent text={name} style={Fonts.h2} upperCase />
                 <FlatList
                     data={datas}
                     keyExtractor={(item) => item.id.toString()}

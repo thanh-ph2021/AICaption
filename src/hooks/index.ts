@@ -1,3 +1,5 @@
 export * from "./redux"
 export * from "./useTheme"
 export * from "./useTypewriter"
+export * from "./useCheckVersion"
+export * from "./useInitData"

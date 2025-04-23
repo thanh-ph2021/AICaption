@@ -70,5 +70,11 @@
     "backup": "Backup",
     "backupRecord": "Backup record",
     "loadingData": "Loading data",
-    "backingUpData": "Backing up data"
+    "backingUpData": "Backing up data",
+    "cancel": "Cancel",
+    "update": "Update",
+    "newVersionAvailable": "New version is coming!",
+    "pleaseUpdate": "New version has been released, please update",
+    "updateFailed": "Update failed!",
+    "updating": "Updating... {{something}}%"
 }
