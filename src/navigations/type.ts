@@ -12,4 +12,5 @@ export type RootStackParamList = {
     [ROUTES.GENERATE_CONTENT]: { type: string },
     [ROUTES.ABOUT]: undefined,
     [ROUTES.ACCOUNT_SYNC]: undefined,
+    [ROUTES.DONATE]: undefined,
 }

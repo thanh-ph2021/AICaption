@@ -37,11 +37,20 @@ const generateSlice = createSlice({
             const uniqueDatas = [...new Map(datas.map(item => [item.id, item])).values()]
             state.items = uniqueDatas
             saveGeneratedList(state.items)
+        },
+        removeGeneratedItem: (
+            state,
+            action: PayloadAction<string>
+        ) => {
+            const filtered: GeneratedItem[] = [...state.items].filter(item => item.id != action.payload)
+
+            state.items = filtered
+            saveGeneratedList(state.items)
         }
     },
 })
 
-export const { addGeneratedItem, setGeneratedList } = generateSlice.actions
+export const { addGeneratedItem, setGeneratedList, removeGeneratedItem } = generateSlice.actions
 export default generateSlice.reducer
 
 export const generatedList = (state: RootState) => state.generate.items

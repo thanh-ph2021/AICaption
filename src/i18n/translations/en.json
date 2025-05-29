@@ -76,5 +76,15 @@
     "newVersionAvailable": "New version is coming!",
     "pleaseUpdate": "New version has been released, please update",
     "updateFailed": "Update failed!",
-    "updating": "Updating... {{something}}%"
+    "updating": "Updating... {{something}}%",
+    "areYouSure": "Are you sure?",
+    "doYouWantToDelete": "Do you want to delete this? This action cannot be undone.",
+    "delete": "Delete",
+    "deleteSuccess": "Deleted successfully!",
+    "optionalMore": "More options (optional)",
+    "close": "Close",
+    "scanMomo": "Scan Momo QR code",
+    "scanVietcombank": "Scan Vietcombank QR code",
+    "donateSupport": "If you love this app, please help us maintain and improve it!",
+    "thankYou": "Thank you very much ❤️"
 }

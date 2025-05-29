@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TextInput, StyleSheet } from 'react-native'
+import { View, TextInput, StyleSheet, KeyboardAvoidingView } from 'react-native'
 import { useTranslation } from 'react-i18next'
 
 import { Fonts, Radius, Spacing } from '@constants'
@@ -14,13 +14,13 @@ interface PromptInputProps {
 const PromptInput: React.FC<PromptInputProps> = ({
     value,
     onChangeText,
-    placeholder = "yourMind",
+    placeholder = "optionalMore",
 }) => {
     const { colors } = useTheme()
     const { t } = useTranslation()
 
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container}>
             <TextInput
                 value={value}
                 onChangeText={onChangeText}
@@ -29,7 +29,7 @@ const PromptInput: React.FC<PromptInputProps> = ({
                 style={[styles.textInput, { backgroundColor: colors.surface, color: colors.text }]}
                 multiline
             />
-        </View>
+        </KeyboardAvoidingView>
     );
 };
 
@@ -37,7 +37,7 @@ export default PromptInput
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: Spacing.l,
+        // marginTop: Spacing.l,
     },
     textInput: {
         borderRadius: Radius.l,

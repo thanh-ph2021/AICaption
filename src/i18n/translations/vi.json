@@ -76,5 +76,15 @@
     "newVersionAvailable": "Có phiên bản mới!",
     "pleaseUpdate": "Phiên bản mới đã được phát hành, vui lòng cập nhật",
     "updateFailed": "Cập nhật thất bại!",
-    "updating": "Đang cập nhật... {{something}}%"
+    "updating": "Đang cập nhật... {{something}}%",
+    "areYouSure": "Bạn có chắc không?",
+    "doYouWantToDelete": "Bạn có muốn xóa không? Hành động này không thể hoàn tác.",
+    "delete": "Xóa",
+    "deleteSuccess": "Xoá thành công!",
+    "optionalMore": "Mô tả thêm (không bắt buộc)",
+    "close": "Đóng",
+    "scanMomo": "Quét mã Momo",
+    "scanVietcombank": "Quét mã Vietcombank",
+    "donateSupport": "Nếu bạn yêu thích ứng dụng, hãy giúp chúng tôi duy trì và phát triển nó tốt hơn!",
+    "thankYou": "Cảm ơn bạn rất nhiều ❤️"
 }

@@ -8,4 +8,7 @@ export const MoodImages = {
 
 export const Images = {
     logo: require('../../assets/images/logo.png'),
+    vietcombank: require('../../assets/images/vietcombank.png'),
+    vietcombankQR: require('../../assets/images/vietcombank-qr.png'),
+    momoQR: require('../../assets/images/momo-qr.png'),
 }

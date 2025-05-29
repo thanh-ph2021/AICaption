@@ -134,6 +134,21 @@ const SetttingsScreen = () => {
                     <Icons.ArrowRight color={colors.text} size={IconSize} />
                 </TouchableOpacity>
             </View>
+            <View style={[styles.sectionContainer, { backgroundColor: colors.background }]}>
+                <TouchableOpacity
+                    style={[styles.rowItem, {marginBottom: 0}]}
+                    onPress={() => navigation.navigate(ROUTES.DONATE)}
+                >
+                    <View style={styles.rowLeftContainer}>
+                        <View style={[styles.iconContainer, { backgroundColor: '#E53935' }]}>
+                            <Icons.Love color={'white'} size={IconSize} />
+                        </View>
+                        <TextComponent text={t("Donate")} style={Fonts.body3} />
+                    </View>
+
+                    <Icons.ArrowRight color={colors.text} size={IconSize} />
+                </TouchableOpacity>
+            </View>
             <SelectModal
                 visible={modalVisible}
                 title={t('language')}

@@ -86,7 +86,7 @@ const GenerateContentScreen = () => {
                 content: content.text,
                 socialType: social,
                 img: content.img,
-              }))
+            }))
 
         } catch (error) {
             console.error(error)
@@ -116,10 +116,6 @@ const GenerateContentScreen = () => {
         if (type === "Status") {
             return (
                 <View style={{ marginHorizontal: Spacing.l }}>
-                    <PromptInput
-                        value={prompt}
-                        onChangeText={setPrompt}
-                    />
                     <ImageSelector
                         imageUri={imageUri}
                         onImageSelected={(uri) => setImageUri(uri)}
@@ -151,16 +147,17 @@ const GenerateContentScreen = () => {
                         selectedSocial={social}
                         onSelectSocial={(s) => setSocial(s)}
                     />
+
+                    <PromptInput
+                        value={prompt}
+                        onChangeText={setPrompt}
+                    />
                 </View>
             )
         }
 
         return (
             <View style={{ marginHorizontal: Spacing.l }}>
-                <PromptInput
-                    value={prompt}
-                    onChangeText={setPrompt}
-                />
                 <OptionSelector
                     label={t('writeStyle')}
                     selectedValue={writingStyle}
@@ -202,6 +199,10 @@ const GenerateContentScreen = () => {
                     selectedSocial={social}
                     onSelectSocial={(s) => setSocial(s)}
                 />
+                <PromptInput
+                    value={prompt}
+                    onChangeText={setPrompt}
+                />
             </View>
         )
     }
@@ -213,16 +214,16 @@ const GenerateContentScreen = () => {
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Icons.Back size={30} color={colors.text} />
                 </TouchableOpacity>
-                <TextComponent text={`${type}`} style={Fonts.h2} upperCase/>
+                <TextComponent text={`${type}`} style={Fonts.h2} upperCase />
                 <View style={UtilStyles.headerSpacer} />
             </View>
 
             <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
                 {/* Content */}
                 {renderContent()}
-
+                <View style={{ height: 80 }} />
             </ScrollView>
-
+            
             <GenerateButton
                 onPress={handleGenerate}
                 isLoading={loading}

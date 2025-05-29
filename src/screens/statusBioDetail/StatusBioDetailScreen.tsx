@@ -61,7 +61,7 @@ const StatusBioDetailScreen = () => {
                     {img ? <Image source={{ uri: img }} style={[styles.image, { width: Sizes.width - (Spacing.l * 2), height: Sizes.height * 0.6 }]} /> : null}
                     <View style={[styles.textBox, { backgroundColor: colors.containerBackground }]}>
                         {getIcon(socialType)}
-                        <TextComponent text={typedText} style={[Fonts.body3, styles.contentText]} showFullLine />
+                        <TextComponent text={title ? typedText : content} style={[Fonts.body3, styles.contentText]} showFullLine />
                     </View>
                     <View style={styles.actionRow}>
                         <TouchableOpacity onPress={copyToClipboard}>

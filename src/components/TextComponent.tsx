@@ -1,8 +1,8 @@
 import React, { memo, useState } from 'react'
 import { StyleProp, TextStyle, Text, Platform, TextLayoutEventData, NativeSyntheticEvent } from "react-native"
+import { useTranslation } from 'react-i18next'
 
 import { useTheme } from '@hooks'
-import { useTranslation } from 'react-i18next'
 
 interface Props {
     text?: string,
@@ -14,11 +14,12 @@ interface Props {
     numberOfLines?: number,
     showFullLine?: boolean,
     canExpand?: boolean,
-    upperCase?: boolean
+    upperCase?: boolean,
+    textAlign?: "right" | "auto" | "left" | "center" | "justify" | undefined
 }
 const TextComponent = (props: Props) => {
 
-    const { text, color, size, flex, style, title, numberOfLines, showFullLine, canExpand = true, upperCase } = props
+    const { text, color, size, flex, style, title, numberOfLines, showFullLine, canExpand = true, upperCase, textAlign = 'left' } = props
     const [textShown, setTextShown] = useState(false)
     const [lengthMore, setLengthMore] = useState(false)
     const { colors } = useTheme()
@@ -44,7 +45,8 @@ const TextComponent = (props: Props) => {
                         flex: flex ?? 0,
                         fontSize: size ? size : title ? 18 : fontSizeDefault,
                         lineHeight: 21,
-                        fontFamily: 'Roboto-Regular'
+                        fontFamily: 'Roboto-Regular',
+                        textAlign: textAlign
                     },
                     style,
                 ]}
@@ -58,8 +60,6 @@ const TextComponent = (props: Props) => {
                 style={{ lineHeight: 21, marginTop: 10, color: colors.primary }}
             >{textShown ? 'Read less' : 'Read more'}</Text> : <></>}
         </>
-
-
     )
 }
 
