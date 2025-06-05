@@ -186,5 +186,8 @@
     "search": "Search",
     "custom": "Custom",
     "typeHere": "Type here...",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "ad_thank_you": "Thank you for donating by watching the ad!",
+    "ad_not_ready": "Ad is not ready yet",
+    "watch_ad": "Watch ad"
 }

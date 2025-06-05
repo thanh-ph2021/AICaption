@@ -17,7 +17,7 @@ export const showNotification = (title: string, Icon: () => React.ReactElement) 
       return (
         <View style={styles.container}>
           <Icon />
-          <TextComponent color="black" text={props.title} style={Fonts.body3} />
+          <TextComponent color="black" text={props.title} style={[Fonts.body3, {flexShrink: 1}]} />
         </View>
       )
     }

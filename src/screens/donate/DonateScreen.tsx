@@ -10,7 +10,7 @@ import { useTheme } from "@hooks"
 import { UtilStyles } from "@utils"
 import { RootStackParamList } from "@navigations"
 import { Images } from "@assets"
-
+import DonateAdButton from "./DonateAdButton"
 
 const DonateScreen = () => {
     const { colors } = useTheme()
@@ -67,6 +67,7 @@ const DonateScreen = () => {
                     <Icons.ArrowRight color={colors.text} size={24} />
                 </TouchableOpacity>
             </View>
+            <DonateAdButton />
             <Modal visible={visible} transparent animationType="fade">
                 <View style={styles.modalOverlay}>
                     <View style={[styles.modalContent, { backgroundColor: colors.background }]}>
