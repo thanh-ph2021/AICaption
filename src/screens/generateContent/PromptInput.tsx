@@ -1,20 +1,22 @@
 import React from 'react'
-import { View, TextInput, StyleSheet, KeyboardAvoidingView } from 'react-native'
+import { TextInput, StyleSheet, KeyboardAvoidingView } from 'react-native'
 import { useTranslation } from 'react-i18next'
 
-import { Fonts, Radius, Spacing } from '@constants'
+import { Fonts, Radius } from '@constants'
 import { useTheme } from '@hooks'
 
 interface PromptInputProps {
     value: string
     onChangeText: (text: string) => void
     placeholder?: string
+    maxLength?: number 
 }
 
 const PromptInput: React.FC<PromptInputProps> = ({
     value,
     onChangeText,
     placeholder = "optionalMore",
+    maxLength, 
 }) => {
     const { colors } = useTheme()
     const { t } = useTranslation()
@@ -28,6 +30,7 @@ const PromptInput: React.FC<PromptInputProps> = ({
                 placeholderTextColor={colors.placehodler}
                 style={[styles.textInput, { backgroundColor: colors.surface, color: colors.text }]}
                 multiline
+                maxLength={maxLength}
             />
         </KeyboardAvoidingView>
     );

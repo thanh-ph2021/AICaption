@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native'
+import { TouchableOpacity, StyleSheet, ActivityIndicator, ViewStyle } from 'react-native'
 import { useTranslation } from 'react-i18next'
 
 import { useTheme } from '@hooks'
@@ -9,20 +9,22 @@ import { Fonts, Radius, Spacing } from '@constants'
 interface GenerateButtonProps {
     onPress: () => void
     isLoading?: boolean
-    title?: string
+    title?: string,
+    containerStyle?: ViewStyle
 }
 
 const GenerateButton: React.FC<GenerateButtonProps> = ({
     onPress,
     isLoading = false,
     title = 'generate',
+    containerStyle
 }) => {
     const { colors } = useTheme()
     const { t } = useTranslation()
 
     return (
         <TouchableOpacity
-            style={[styles.button, isLoading && styles.disabled, { backgroundColor: colors.primary }]}
+            style={[styles.button, isLoading && styles.disabled, { backgroundColor: colors.primary }, containerStyle]}
             onPress={onPress}
             disabled={isLoading}
             activeOpacity={0.8}
@@ -43,11 +45,7 @@ const styles = StyleSheet.create({
         paddingVertical: Spacing.m,
         borderRadius: Radius.l,
         alignItems: 'center',
-        marginTop: Spacing.l,
-        position: 'absolute',
-        bottom: Spacing.l,
-        left: Spacing.l,
-        right: Spacing.l,
+        padding: Spacing.s
     },
     disabled: {
         opacity: 0.6,

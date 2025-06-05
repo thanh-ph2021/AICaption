@@ -41,13 +41,23 @@ export const getIcon = (socialType: string, size?: number) => {
   }
 }
 
-export const WritingStyles = ['formal', 'informal', 'funny', 'romantic', 'motivational', 'sarcastic', 'poetic', 'aesthetic', 'minimalist', 'emotional']
+export const WritingStyles = ['formal', 'informal', 'funny', 'romantic', 'motivational', 'sarcastic', 'poetic', 'aesthetic', 'minimalist', 'emotional', 'custom']
 
-export const Languages = ['vi', 'en', 'zh', 'hi', 'es', 'fr', 'ar', 'bn', 'ru', 'pt', 'ur']
+export const Languages = ['vi', 'en', 'af', 'am', 'ar', 'az', 'be', 'bg', 'bn', 'bs', 'ca', 'ceb',
+  'cs', 'cy', 'da', 'de', 'el', 'eo', 'es', 'et', 'eu',
+  'fa', 'fi', 'fr', 'fy', 'ga', 'gd', 'gl', 'gu', 'ha', 'haw',
+  'he', 'hi', 'hmn', 'hr', 'ht', 'hu', 'hy', 'id', 'ig', 'is',
+  'it', 'ja', 'jw', 'ka', 'kk', 'km', 'kn', 'ko', 'ku', 'ky',
+  'la', 'lb', 'lo', 'lt', 'lv', 'mg', 'mi', 'mk', 'ml', 'mn',
+  'mr', 'ms', 'mt', 'my', 'ne', 'nl', 'no', 'ny', 'pa', 'pl',
+  'ps', 'pt', 'ro', 'ru', 'rw', 'sd', 'si', 'sk', 'sl', 'sm',
+  'sn', 'so', 'sq', 'sr', 'st', 'su', 'sv', 'sw', 'ta', 'te',
+  'tg', 'th', 'tk', 'tl', 'tr', 'tt', 'ug', 'uk', 'ur', 'uz',
+  'xh', 'yi', 'yo', 'zh', 'zu']
 
-export const Topics = ['love','life','friendship','success','travel','food','self_love','fitness','nature','sadness']
+export const Topics = ['love', 'life', 'friendship', 'success', 'travel', 'food', 'self_love', 'fitness', 'nature', 'sadness', 'custom']
 
-export const Length = ['short','medium','long','very_long']
+export const Length = ['short', 'medium', 'long', 'very_long']
 
 export const getOptionsByType = (selectedOptionType: string | null) => {
   switch (selectedOptionType) {
@@ -86,11 +96,11 @@ export const saveDataToFile = async (data: BackupDataModel) => {
   const jsonData = JSON.stringify(data, null, 2)
 
   try {
-      await RNFS.writeFile(path, jsonData, "utf8")
-      console.log("File saved at:", path)
-      return path
+    await RNFS.writeFile(path, jsonData, "utf8")
+    console.log("File saved at:", path)
+    return path
   } catch (error) {
-      console.error("Error saving file:", error)
+    console.error("Error saving file:", error)
   }
 }
 
@@ -99,8 +109,8 @@ export const handleAsyncData = async (data: BackupDataModel) => {
   const filePath = await saveDataToFile(data)
   const token = await GoogleSignin.getTokens()
   if (filePath && token) {
-      await GoogleDrive.uploadToDrive(token.accessToken, filePath)
-      await saveLastSyncTime(date)
+    await GoogleDrive.uploadToDrive(token.accessToken, filePath)
+    await saveLastSyncTime(date)
   }
 }
 

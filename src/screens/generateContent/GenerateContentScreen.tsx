@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { ScrollView, TouchableOpacity, View } from "react-native"
+import React, { useEffect, useState } from "react"
+import { KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity, View } from "react-native"
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { useTranslation } from "react-i18next"
@@ -20,6 +20,7 @@ import EmojiToggle from "./EmojiToggle"
 import SelectModal from "./SelectModal"
 import { generate } from "@apis"
 import { addGeneratedItem } from "@store"
+import { getGenerateCount, hasUsedImageToday } from "@storage"
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'GENERATE_CONTENT'>
 const moods = [
@@ -38,6 +39,17 @@ const GenerateContentScreen = () => {
     const route = useRoute<RouteProp<RootStackParamList, 'GENERATE_CONTENT'>>()
     const { type } = route.params
     const dispatch = useAppDispatch()
+    const [canUseImage, setCanUseImage] = useState<boolean>(true)
+    console.log("🚀 ~ GenerateContentScreen ~ canUseImage:", canUseImage)
+
+    useEffect(() => {
+        const checkImageUsage = async () => {
+            const used = await hasUsedImageToday()
+            console.log("🚀 ~ checkImageUsage ~ used:", used)
+            setCanUseImage(!used)
+        }
+        checkImageUsage()
+    }, [])
 
     const [imageUri, setImageUri] = useState<string>("")
     const [prompt, setPrompt] = useState<string>("")
@@ -60,6 +72,12 @@ const GenerateContentScreen = () => {
         setLoading(true)
 
         try {
+            const count = await getGenerateCount()
+            if (count === -1) {
+                setLoading(false)
+                showNotification(t('dailyLimitReached'), () => <Icons.Danger size={20} />)
+                return
+            }
             const object = {
                 type,
                 prompt,
@@ -116,10 +134,15 @@ const GenerateContentScreen = () => {
         if (type === "Status") {
             return (
                 <View style={{ marginHorizontal: Spacing.l }}>
-                    <ImageSelector
-                        imageUri={imageUri}
-                        onImageSelected={(uri) => setImageUri(uri)}
-                    />
+                    {canUseImage ? (
+                        <ImageSelector
+                            imageUri={imageUri}
+                            onImageSelected={(uri) => {
+                                setImageUri(uri)
+                            }}
+                        />
+                    ) : <></>}
+
                     <MoodSelector
                         moods={moods}
                         selectedMood={mood}
@@ -151,6 +174,7 @@ const GenerateContentScreen = () => {
                     <PromptInput
                         value={prompt}
                         onChangeText={setPrompt}
+                        maxLength={500}
                     />
                 </View>
             )
@@ -214,8 +238,14 @@ const GenerateContentScreen = () => {
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Icons.Back size={30} color={colors.text} />
                 </TouchableOpacity>
-                <TextComponent text={`${type}`} style={Fonts.h2} upperCase />
-                <View style={UtilStyles.headerSpacer} />
+                <View style={{ position: 'absolute', left: Spacing.xxl * 3, right: Spacing.xxl * 3 }}>
+                    <TextComponent text={`${type}`} style={Fonts.h2} upperCase textAlign="center" />
+                </View>
+                <GenerateButton
+                    onPress={handleGenerate}
+                    isLoading={loading}
+                    title="generate"
+                />
             </View>
 
             <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
@@ -223,12 +253,6 @@ const GenerateContentScreen = () => {
                 {renderContent()}
                 <View style={{ height: 80 }} />
             </ScrollView>
-            
-            <GenerateButton
-                onPress={handleGenerate}
-                isLoading={loading}
-                title="generate"
-            />
 
             <SelectModal
                 visible={modalVisible}

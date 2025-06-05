@@ -2,6 +2,8 @@ import { GoogleGenAI } from "@google/genai"
 import Config from "react-native-config"
 import RNFS from 'react-native-fs'
 
+import { setImageUsedToday } from "@storage/usageLimiter"
+
 const ai = new GoogleGenAI({ apiKey: Config.GOOGLE_API_KEY })
 
 const uriToBase64 = async (uri: string): Promise<string | null> => {
@@ -59,6 +61,10 @@ export const generate = async ({
     candidateCount?: number
 }): Promise<{ text: string, img: string }> => {
     try {
+        if(imageUri){
+            setImageUsedToday()
+        }
+        
         const imageBase64 = imageUri ? await uriToBase64(imageUri) : null
         const mineType = imageUri ? getMimeTypeFromUri(imageUri) : null
 

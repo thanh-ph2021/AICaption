@@ -56,7 +56,7 @@ const StatusBioDetailScreen = () => {
             </View>
 
             {/* Content */}
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.body}>
                     {img ? <Image source={{ uri: img }} style={[styles.image, { width: Sizes.width - (Spacing.l * 2), height: Sizes.height * 0.6 }]} /> : null}
                     <View style={[styles.textBox, { backgroundColor: colors.containerBackground }]}>
