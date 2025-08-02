@@ -11,7 +11,7 @@ import { Container, TextComponent, Icons, AppModal } from "@components"
 import { Fonts, Spacing, Radius } from '@constants'
 import { RootStackParamList, ROUTES } from '@navigations'
 import { GeneratedItem, generatedList } from '@store'
-import { name } from '../../../package.json'
+import { displayName } from '../../../app.json'
 import { removeGeneratedItem } from '@store/generateSlice'
 import { showNotification } from '@utils'
 
@@ -80,7 +80,7 @@ const HomeScreen = () => {
     return (
         <Container>
             <View style={styles.header}>
-                <TextComponent text={name} style={Fonts.h2} upperCase />
+                <TextComponent text={displayName} style={Fonts.h2} upperCase />
                 <FlatList
                     data={datas}
                     keyExtractor={(item) => item.id.toString()}

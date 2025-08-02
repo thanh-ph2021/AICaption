@@ -75,6 +75,41 @@ export const useCheckVersion = () => {
         })
     }
 
+    const onCheckVersionSilently = () => {
+        fetch(apiVersion!)
+            .then(async (data) => {
+                if (!data.ok) throw new Error('Failed to fetch version info')
+                const result = await data.json()
+                const currentVersion = await hotUpdate.getCurrentVersion()
+
+                if (result?.version > currentVersion) {
+                    hotUpdate.downloadBundleUri(
+                        ReactNativeBlobUtil,
+                        Platform.OS === 'ios' ? result.downloadIosUrl : result.downloadAndroidUrl,
+                        result.version,
+                        {
+                            updateSuccess: () => {
+                                console.log('[OTA] Download success! Will apply on next launch.')
+                            },
+                            updateFail: (message) => {
+                                console.log('[OTA] Update failed:', message)
+                            },
+                            progress: (received, total) => {
+                                const percent = (+received / +total) * 100
+                                setProgress(percent)
+                            },
+                            restartAfterInstall: false,
+                        }
+                    )
+                } else {
+                    console.log('[OTA] App is up to date')
+                }
+            })
+            .catch((err) => {
+                console.log('[OTA] Update check failed:', err.message)
+            })
+    }
+
     const rollBack = async () => {
         const rs = await hotUpdate.rollbackToPreviousBundle()
         if (rs) {
@@ -115,6 +150,7 @@ export const useCheckVersion = () => {
             getMeta,
             setMeta,
             onCheckVersion,
+            onCheckVersionSilently,
             rollBack,
             state: {
                 progress,

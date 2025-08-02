@@ -19,7 +19,7 @@ const RootNavigator = () => {
   useInitData()
   useEffect(() => {
     SplashScreen.hide()
-    version.onCheckVersion()
+    version.onCheckVersionSilently()
   }, [])
 
   return (

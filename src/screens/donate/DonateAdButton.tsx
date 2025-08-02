@@ -5,7 +5,7 @@ import {
     TestIds,
 } from 'react-native-google-mobile-ads'
 import { useEffect, useState } from 'react'
-import { View, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native'
 import { useTranslation } from 'react-i18next'
 
 import { showNotification } from '@utils'
@@ -20,6 +20,7 @@ const rewarded = RewardedAd.createForAdRequest(adUnitId, {
 
 export default function DonateAdButton() {
     const [loaded, setLoaded] = useState(false)
+    const [isShowing, setIsShowing] = useState(false)
     const { t } = useTranslation()
     const { colors } = useTheme()
 
@@ -39,6 +40,7 @@ export default function DonateAdButton() {
         const unsubscribeClosed = rewarded.addAdEventListener(
             AdEventType.CLOSED,
             () => {
+                setIsShowing(false)
                 setLoaded(false)
                 rewarded.load()
             }
@@ -54,7 +56,8 @@ export default function DonateAdButton() {
     }, [])
 
     const showAd = () => {
-        if (loaded) {
+        if (loaded && !isShowing) {
+            setIsShowing(true)
             rewarded.show()
             setLoaded(false)
         } else {
@@ -67,12 +70,13 @@ export default function DonateAdButton() {
             <TouchableOpacity
                 style={styles.rowItem}
                 onPress={showAd}
+                disabled={!loaded || isShowing}
             >
                 <View style={styles.rowLeftContainer}>
                     <View style={[styles.iconContainer,]}>
                         <Icons.AdMob size={24} />
                     </View>
-                    <TextComponent text={t('watch_ad')} style={Fonts.body3} />
+                    {!loaded || isShowing ? <ActivityIndicator color={colors.primary} size={'small'} /> : <TextComponent text={t('watch_ad')} style={Fonts.body3} />}
                 </View>
                 <Icons.ArrowRight color={colors.text} size={24} />
             </TouchableOpacity>

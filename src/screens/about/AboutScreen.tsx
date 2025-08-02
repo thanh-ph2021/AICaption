@@ -10,7 +10,7 @@ import { Fonts, Radius, Spacing } from "@constants"
 import { useTheme } from "@hooks"
 import { RootStackParamList } from "@navigations"
 import { Images } from "@assets"
-import { version } from '../../../package.json'
+import { version } from '../../../app.json'
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'ABOUT'>
 const data = ['privacyPolicy', 'temsService', 'checkUpdate']

@@ -1,6 +1,6 @@
 {
-  "name": "Status & Bio AI Generator",
-  "version": "1.0.3",
+  "name": "status-bio-ai-generator",
+  "version": "1.0.4",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
